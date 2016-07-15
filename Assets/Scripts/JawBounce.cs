@@ -5,8 +5,8 @@ using UnityEngine.UI;
 public class JawBounce : MonoBehaviour
 {
 
-    [SerializeField] private SpriteRenderer m_face = null;
-    [SerializeField] private SpriteRenderer m_jaw = null;
+    [SerializeField] private GameObject m_face = null;
+    [SerializeField] private GameObject m_jaw = null;
 
     private bool m_opening;
     private bool m_closing;
@@ -14,6 +14,7 @@ public class JawBounce : MonoBehaviour
     public  void SetOpening(bool state) { m_opening = state; }
 
     [SerializeField]private float m_maxOffset;
+    private float m_origMaxOffset;
     private float m_startPos;
 
     [SerializeField] private float m_speed;
@@ -23,6 +24,7 @@ public class JawBounce : MonoBehaviour
     {
         m_startPos = m_jaw.transform.position.y;
         m_maxOffset = m_startPos - m_maxOffset;
+        m_origMaxOffset = m_maxOffset;
         m_talking = false;
         m_closing = false;
     }
@@ -67,6 +69,7 @@ public class JawBounce : MonoBehaviour
             {
                 m_talking = false;
                 m_closing = false;
+                m_maxOffset = m_origMaxOffset * Random.Range(0.95f, 1.05f);
             }
         }
         

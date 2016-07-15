@@ -9,6 +9,7 @@ public class TextPrompter : MonoBehaviour
     private List<char> m_letterList; 
 
     [SerializeField] private Text m_text;
+    [SerializeField] private string m_string;
     private bool m_isPrinting;
     [SerializeField] private float m_printSpeed;
     private float m_printTime;
@@ -23,6 +24,8 @@ public class TextPrompter : MonoBehaviour
             m_jawBouncer = gameObject.GetComponent<JawBounce>();
         }
         m_printTime = 0;
+
+        m_text.verticalOverflow = VerticalWrapMode.Overflow;
     }
 
     private void PushChars(string str)
@@ -41,6 +44,7 @@ public class TextPrompter : MonoBehaviour
     private void PrintChars()
     {
         m_printTime += Time.deltaTime * Random.Range(0.9f, 1.1f);
+
         if(m_letterList.Count > m_printIndex)
         {
             if (m_printTime > m_printSpeed)
@@ -58,8 +62,9 @@ public class TextPrompter : MonoBehaviour
     {
         if (Input.anyKeyDown)
         {
+            m_text.text = "";
             m_isPrinting = true;
-            SetString("okej, här kommer texten");
+            SetString(m_string);
         }
 
 
