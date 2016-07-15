@@ -6,8 +6,10 @@ using System.Collections.Generic;
 public class TextPrompter : MonoBehaviour
 {
     public void SetString(string str) {PushChars(str); }
-    private List<char> m_letterList; 
+    private List<char> m_letterList;
 
+    private bool m_clicked = false;
+    [SerializeField] private Button m_button = null;
     [SerializeField] private Text m_text;
     [SerializeField] private string m_string;
     private bool m_isPrinting;
@@ -57,14 +59,34 @@ public class TextPrompter : MonoBehaviour
             }
         }   
     }
+    
+    public void ClickedButton()
+    {
+        m_clicked = true;
+    }
 
     void Update()
     {
-        if (Input.anyKeyDown)
+        if( m_button == null )
         {
-            m_text.text = "";
-            m_isPrinting = true;
-            SetString(m_string);
+            if (Input.anyKeyDown)
+            {
+                m_text.text = "";
+                m_isPrinting = true;
+                SetString(m_string);
+            }
+        }
+        else
+        {
+            if (m_clicked)
+            {
+                m_clicked = false;
+
+                m_text.text = "";
+                m_isPrinting = true;
+                SetString(m_string);
+            }
+            
         }
 
 
@@ -74,3 +96,4 @@ public class TextPrompter : MonoBehaviour
         }
     }
 }
+

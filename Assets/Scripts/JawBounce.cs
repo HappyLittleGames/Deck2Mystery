@@ -32,12 +32,12 @@ public class JawBounce : MonoBehaviour
 	
 	void Update ()
     {
-        if (Input.anyKeyDown)
-        {
-            SetOpening(true);
-            Debug.Log("StartOpening");
-            m_talking = true;
-        }
+        //if (Input.anyKeyDown)
+        //{
+        //    SetOpening(true);
+        //    Debug.Log("StartOpening");
+        //    m_talking = true;
+        //}
         MoveJaw();        
 	}
 
