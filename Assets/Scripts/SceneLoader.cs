@@ -3,6 +3,14 @@ using System.Collections;
 
 public class SceneLoader : MonoBehaviour
 {
+    public void LoadLevel(string level)
+    {
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != level)
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene(level);
+        }
+    }
+
     public void LoadMess()
     {
         if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "fakeMess")
@@ -18,5 +26,6 @@ public class SceneLoader : MonoBehaviour
             UnityEngine.SceneManagement.SceneManager.LoadScene("dass");
         }
     }
+
 
 }

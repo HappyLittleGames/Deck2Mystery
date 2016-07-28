@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class FollowMove : MonoBehaviour
@@ -6,6 +7,12 @@ public class FollowMove : MonoBehaviour
     [SerializeField] float m_radius = 1;
     private bool m_following;
     private Vector2 m_startPos;
+    private bool m_movable = true;
+
+    public void SetMovable(bool state)
+    {
+        m_movable = state;
+    }
 
 	void Start ()
     {
@@ -15,21 +22,23 @@ public class FollowMove : MonoBehaviour
 	
 	void Update ()
     {
-        // fake clickable
-        if (Input.GetMouseButtonDown(0) && (Vector2.Distance(Input.mousePosition, gameObject.transform.position) < m_radius))
+        if (m_movable)
         {
-            m_following = true;
-        }
-        else if (Input.GetMouseButtonUp(0))
-        {
-            m_following = false;
-            gameObject.transform.position = m_startPos;
-        }
+            if (Input.GetMouseButtonDown(0) && (Vector2.Distance(Input.mousePosition, gameObject.transform.position) < m_radius))
+            {
+                m_following = true;
+            }
+            else if (Input.GetMouseButtonUp(0))
+            {
+                m_following = false;
+                gameObject.transform.position = m_startPos;
+            }
 
 
-	    if(m_following)
-        {
-            gameObject.transform.position = Input.mousePosition;
+            if (m_following)
+            {
+                gameObject.transform.position = Input.mousePosition;
+            }
         }
 	}
 
