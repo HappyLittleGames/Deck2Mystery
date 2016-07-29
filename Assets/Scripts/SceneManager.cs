@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SceneManager : MonoBehaviour
 {
+    private GameObject m_currentlyHolding = null;
     [SerializeField] private GameObject[] m_sceneObjects = null;
     private int m_objectIndex = 0;
 
@@ -37,5 +38,31 @@ public class SceneManager : MonoBehaviour
     public virtual void NextScene()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene("intro");
+    }
+
+
+    public void SetHolding(GameObject thing)
+    {
+        m_currentlyHolding = thing;
+        Debug.Log("Grabbed a " + thing.tag);
+    }
+
+    public void ReleaseHolding()
+    {
+        m_currentlyHolding = null;
+    }
+
+    public GameObject GetHolding()
+    {
+        if (m_currentlyHolding != null)
+        {
+            return m_currentlyHolding;
+        }
+        else
+        {
+
+            Debug.Log("Attempted to get a thing from nobody-s hands (GameManager)");
+            return null;
+        }
     }
 }

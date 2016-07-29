@@ -5,12 +5,22 @@ using UnityEngine.EventSystems;
 
 public class FingerTracker : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
-    [SerializeField]
-    private Vector2 m_handleOffset = new Vector2(0,0);
+    [SerializeField] private Vector2 m_handleOffset = new Vector2(0,0);
     private bool m_following;
     private Vector2 m_startPos;
     private bool m_isMoving = false;
     [SerializeField] private bool m_clickOffset = false;
+    private SceneManager m_sManager = null;
+
+    void Start()
+    {
+        if (m_sManager == null)
+        {
+            m_sManager = GameObject.FindGameObjectWithTag("SceneManager").GetComponent<SceneManager>();
+        }
+        m_startPos = gameObject.transform.position;
+        m_following = false;
+    }
 
     public void SartFollowing()
     {
@@ -29,13 +39,7 @@ public class FingerTracker : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
         m_handleOffset = new Vector2(0, 0);
     }
 
-    void Start()
-    {
-        m_startPos = gameObject.transform.position;
-        m_following = false;
-    }
-
-    void Update()
+    void LateUpdate()
     {
         if (Input.GetMouseButtonDown(0))
         {
@@ -74,10 +78,15 @@ public class FingerTracker : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
     public void OnPointerDown(PointerEventData eventData)
     {
         SartFollowing();
+        if (m_sManager != null)
+        {
+            m_sManager.SetHolding(gameObject);
+        }
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        Debug.Log("Released over " + gameObject.name);
         StopFollowing();
     }
 

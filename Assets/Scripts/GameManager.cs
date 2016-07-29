@@ -20,12 +20,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Queue<int> m_cabinQueue = new Queue<int>();
     public int GetCabinAt(int index) { int[] levelArr = m_cabinQueue.ToArray(); return levelArr[index]; }
 
-    private GameObject m_currentlyHolding = null;
-
     void OnLevelWasLoaded(int level)
     {  
         if (m_sceneManager = GameObject.FindGameObjectWithTag("SceneManager").GetComponent<SceneManager>())
         {
+            // make memento pattern out of thissss
+
             Debug.Log("SceneManager connected, queued scene " + level);
             m_cabinQueue.Enqueue(level);
             if (m_cabinIndex != 0)
@@ -43,27 +43,4 @@ public class GameManager : MonoBehaviour
         m_sceneManager.NextObject();
     }
 
-    public void SetHolding(GameObject thing)
-    {
-        m_currentlyHolding = thing;
-    }
-
-    public void ReleaseHolding()
-    {
-        m_currentlyHolding = null;
-    }
-
-    public GameObject GetHolding()
-    {
-        if (m_currentlyHolding != null)
-        {
-            return m_currentlyHolding;
-        }
-        else
-        {
-
-            Debug.Log("Attempted to get a thing from nobody-s hands (GameManager)");
-            return null;
-        }
-    }
 }
