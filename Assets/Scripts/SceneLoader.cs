@@ -1,8 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class SceneLoader : MonoBehaviour
 {
+
+    private GameManager m_manager = null;
+    [SerializeField] private List<string> m_dragningsScenes;
+
+    
+
     public void LoadLevel(string level)
     {
         if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != level)
@@ -19,12 +26,26 @@ public class SceneLoader : MonoBehaviour
         }
     }
 
-    public void LoadDass()
+    public void LoadDragning()
     {
-        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "dass")
+
+    if (m_manager == null)
+    {
+        m_manager = GameObject.FindGameObjectWithTag("FirstController").GetComponent<GameManager>();
+    }
+
+    if (m_manager != null)
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene("dass");
+            string level = m_dragningsScenes[Random.Range(0, m_dragningsScenes.Count)];
+            while (level == m_manager.GetLastHytt())
+            {
+                level = m_dragningsScenes[Random.Range(0, m_dragningsScenes.Count - 1)];
+            }
+            UnityEngine.SceneManagement.SceneManager.LoadScene(level);
+            m_manager.SetLastHytt(level);
         }
+        else
+            Debug.Log("failed to load because manager missing");
     }
 
 

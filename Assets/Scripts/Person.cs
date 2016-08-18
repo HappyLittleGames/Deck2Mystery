@@ -3,13 +3,15 @@ using System.Collections;
 
 public class Person : MonoBehaviour
 {
+    private Conversation m_conversation;
+
     [SerializeField] private bool m_fullscreen = false;
     [SerializeField] Vector2 m_thumbScale = Vector2.zero;
     [SerializeField] Vector2 m_fullScale = Vector2.zero;
 
     [SerializeField] private GameObject m_fullScreenVersion = null;
     [SerializeField] private GameObject m_thumbnailVersion = null;
-
+    
     void Start()
     {
         if (m_thumbScale == Vector2.zero)

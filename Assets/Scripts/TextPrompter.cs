@@ -129,6 +129,10 @@ public class TextPrompter : MonoBehaviour
             gameObject.GetComponentInParent<Person>().SetState(false);
             if (m_nextItem != null)
             {
+                if (!m_nextItem.activeSelf)
+                {
+                    m_nextItem.SetActive(true);
+                }
                 if (m_nextItem.GetComponent<Flasj>())
                 {
                     m_nextItem.GetComponent<Flasj>().SetState(true);

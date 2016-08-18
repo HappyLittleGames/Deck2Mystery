@@ -41,7 +41,7 @@ public class BinBehaviour : MonoBehaviour //, IPointerUpHandler
     //            Debug.Log("threw some " + m_targetTag + "s" + "into " + gameObject.tag);
     //        }
     //    }
-     
+
     //}
 
     void Update()
@@ -57,7 +57,7 @@ public class BinBehaviour : MonoBehaviour //, IPointerUpHandler
         }
     }
 
-    void CheckTheDropped(Vector2 mousePos)
+    private void CheckTheDropped(Vector2 mousePos)
     {
         Rect binBounds = m_image.GetPixelAdjustedRect();
         if (binBounds.Contains(mousePos))
@@ -94,10 +94,21 @@ public class BinBehaviour : MonoBehaviour //, IPointerUpHandler
                 if (m_manager.GetHolding().tag == m_targetTag)
                 {
                     Debug.Log("That's the right thing in the right place even! :D:D");
+                    Destroy(m_manager.GetHolding());
+                    m_manager.ReleaseHolding();
+                    NKI nki = null;
+                    if (nki = m_manager.GetNki())
+                        nki.AddNki(2);
                 }
-                Debug.Log("BinBehaviour detected throwable: " + m_manager.GetHolding().name + ", over " + this.name);
-                Destroy(m_manager.GetHolding());
-                m_manager.ReleaseHolding();
+                else
+                {
+                    Debug.Log("BinBehaviour detected throwable: " + m_manager.GetHolding().name + ", over " + this.name);
+                    Destroy(m_manager.GetHolding());
+                    m_manager.ReleaseHolding();
+                    NKI nki = null;
+                    if (nki = m_manager.GetNki())
+                        nki.DeductNki(1);
+                }
             }
         }
         
